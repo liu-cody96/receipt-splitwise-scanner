@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_cors import CORS
 
-def create_app():
+def create_app(settings_override=None):
     """
     Create a Flask application using the app factory pattern.
 
