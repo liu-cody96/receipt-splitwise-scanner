@@ -1,0 +1,16 @@
+version: '2'
+
+services:
+  website:
+    build: . # build image from current directory
+    command: > # tells yaml to treat multiline string as single command
+      gunicorn -b 0.0.0.0:8000
+        --access-logfile -
+        --reload
+        "receiptscanner.app:create_app()"
+    environment:
+      PYTHONUNBUFFERED: 'true'
+    volumes:
+      - '.:/receiptscanner' # mounts application inside receiptscanner folder within Docker. Lets us edit codebase and then changes sync up to Docker, so we dont have to keep rebuilding the image
+    ports:
+      - '8000:8000'
