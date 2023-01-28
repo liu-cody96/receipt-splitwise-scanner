@@ -19,6 +19,11 @@ class Users(db.Model):
     password = db.Column(db.String(150))
     username = db.Column(db.String(150))
 
+@app.route('/', methods=["GET"])
+def hello():
+    print('request made')
+    return "Hello world"
+
 @app.route('/token', methods=["POST"])
 def create_token():
     email = request.json.get("email", None)

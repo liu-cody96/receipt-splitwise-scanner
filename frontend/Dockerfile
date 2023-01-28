@@ -14,6 +14,6 @@ RUN npm run build
 # Set the env to "development"
 ENV NODE_ENV development
 # Expose the port on which the app will be running (8000 is the default that `serve` uses)
-EXPOSE 8000
+EXPOSE 3000
 # Start the app
 CMD [ "npx", "serve", "build" ]
