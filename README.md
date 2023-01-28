@@ -26,8 +26,8 @@
 
 create table Users (                                                 
     id SERIAL PRIMARY KEY,                                                          
-    first_name VARCHAR(150),                                                        
-    PASSWORD VARCHAR(150),                                                          
+    username VARCHAR(150),                                                        
+    password VARCHAR(150),                                                          
     email VARCHAR(150) UNIQUE                                                       
 );
 

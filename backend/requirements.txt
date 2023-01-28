@@ -10,5 +10,6 @@ psycopg2==2.9.3
 SQLAlchemy==1.4.42
 Flask-SQLAlchemy==3.0.2
 Flask-Cors==3.0.10
+Flask-JWT-Extended
 
 python-dotenv
