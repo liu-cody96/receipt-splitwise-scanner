@@ -7,7 +7,7 @@ export const Home = () => {
     
 
     const getFlights = () => {
-        axios.get('http://localhost:8000/')
+        axios.get('/')
         .then((res) => {
             setData(res.data);
         });
