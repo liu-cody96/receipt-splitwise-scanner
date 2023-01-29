@@ -6,9 +6,11 @@ RUN mkdir -p $INSTALL_PATH
 
 WORKDIR $INSTALL_PATH
 
+RUN apt-get update && apt-get install -y libpq-dev gcc
+
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
 COPY . .
 
-CMD gunicorn -b 0.0.0.0:8000 --access-logfile - "receiptscanner.app:create_app()"
+CMD gunicorn -b 0.0.0.0:8000 --access-logfile - "receiptscanner.app:app"

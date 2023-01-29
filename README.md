@@ -14,6 +14,19 @@
 
 # to run the frontend: 
 1. cd into frontend folder
-2. build image --> "docker-compose up --build"
-3. to close out, hit Ctrl + C, then type "docker-compose stop" 
-4. to open image back up, "docker-compose up"
+2. npm start
+
+
+# to setup the database:
+1. Make an account on ElephantSQL and set up the database 
+2. paste the key into SQLALCHEMY_DATABASE_URI in settings.py
+3. execute this commmand in Browser: 
+
+create table Users (                                                 
+    id SERIAL PRIMARY KEY,                                                          
+    username VARCHAR(150),                                                        
+    password VARCHAR(150),                                                          
+    email VARCHAR(150) UNIQUE                                                       
+);
+
+4. voila you have a database.

@@ -7,7 +7,7 @@ services:
       gunicorn -b 0.0.0.0:8000
         --access-logfile -
         --reload
-        "receiptscanner.app:create_app()"
+        "receiptscanner.app:app"
     environment:
       PYTHONUNBUFFERED: 'true'
     volumes:
