@@ -29,7 +29,7 @@ def create_token():
     email = request.json.get("email", None)
     password = request.json.get("password", None)
     user = Users.query.filter_by(email=email).first()
-    if not user:
+    if not user or not(check_password_hash(user.password, password)):
         return {"msg": "Wrong email or password"}, 401
 
     # if login is correct, create an access token and return the response to the frontend
@@ -42,7 +42,12 @@ def create_token():
 @jwt_required() # protect this route with JWT required. only if you pass in a token you can view this route
 def my_profile():
     current_user = get_jwt_identity()
-    return jsonify(logged_in_as=current_user), 200
+
+    # fetch all details of the current user from the DB. 
+    user = Users.query.filter_by(email=current_user).first()
+
+    response = jsonify({"username": user.username})
+    return response, 200
 
 @app.route("/logout", methods=["POST"])
 def logout():

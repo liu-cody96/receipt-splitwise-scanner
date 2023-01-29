@@ -11,7 +11,7 @@ const App = () => {
 
         <Routes>
             {/* route to landing page if browser URL becomes '/' */}
-            <Route path="/" element={<Home/>}></Route>
+            <Route path="/*" element={<Home/>}></Route>
             {/* route anything else to the error page */}
             <Route path="*" element={<Error/>}></Route>
         </Routes>

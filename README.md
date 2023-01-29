@@ -14,9 +14,7 @@
 
 # to run the frontend: 
 1. cd into frontend folder
-2. build image --> "docker-compose up --build"
-3. to close out, hit Ctrl + C, then type "docker-compose stop" 
-4. to open image back up, "docker-compose up"
+2. npm start
 
 
 # to setup the database:
