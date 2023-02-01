@@ -6,12 +6,12 @@ from werkzeug.security import generate_password_hash, check_password_hash # neve
 from flask_jwt_extended import create_access_token,get_jwt,get_jwt_identity, \
                                unset_jwt_cookies, jwt_required, JWTManager
 
-app = Flask(__name__, instance_relative_config=True)
-app.config.from_object('config.settings')
-app.config.from_pyfile('settings.py', silent=True)
-CORS(app)
-db = SQLAlchemy(app)
-jwt = JWTManager(app)
+main_app = Flask(__name__, instance_relative_config=True)
+main_app.config.from_object('config.settings')
+main_app.config.from_pyfile('settings.py', silent=True)
+CORS(main_app)
+db = SQLAlchemy(main_app)
+jwt = JWTManager(main_app)
 
 class Users(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -19,12 +19,12 @@ class Users(db.Model):
     password = db.Column(db.String(150))
     username = db.Column(db.String(150))
 
-@app.route('/', methods=["GET"])
+@main_app.route('/', methods=["GET"])
 def hello():
     print('request made')
     return "Hello world"
 
-@app.route('/token', methods=["POST"])
+@main_app.route('/token', methods=["POST"])
 def create_token():
     email = request.json.get("email", None)
     password = request.json.get("password", None)
@@ -38,7 +38,7 @@ def create_token():
     return response
 
 
-@app.route('/profile')
+@main_app.route('/profile')
 @jwt_required() # protect this route with JWT required. only if you pass in a token you can view this route
 def my_profile():
     current_user = get_jwt_identity()
@@ -49,13 +49,13 @@ def my_profile():
     response = jsonify({"username": user.username})
     return response, 200
 
-@app.route("/logout", methods=["POST"])
+@main_app.route("/logout", methods=["POST"])
 def logout():
     response = jsonify({"msg": "logout successful"})
     unset_jwt_cookies(response)
     return response
 
-@app.route('/register', methods=['GET', 'POST'])
+@main_app.route('/register', methods=['GET', 'POST'])
 def register():
     """
     Add a user to the database.
