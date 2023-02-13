@@ -6,7 +6,7 @@ export const Header = (props) => {
   const logMeOut = () => {
     axios({
       method: "POST",
-      url:"http://localhost:8000/logout",
+      url:"http://localhost:8000/login/logout",
     })
     .then((response) => {
        props.token()

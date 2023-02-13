@@ -1,27 +1,38 @@
 import pytest
 
-from receiptscanner.app import main_app
+from receiptscanner.app import create_app
 
 
 @pytest.fixture(scope='session')
-def main_app():
+def app():
     """
     Setup our flask test app, this only gets executed once.
 
     :return: Flask app
     """
+    params = {
+        'DEBUG': False,
+        'TESTING': True,
+    }
 
-    _app = main_app
+    _app = create_app() # settings_override = params?
 
-    main_app.config.update({
-        "DEBUG": False,
-        "TESTING": True,
-    })
-    # other setup can go here
+    # Establish an application context before running the tests.
+    ctx = _app.app_context()
+    ctx.push()
+
     yield _app
-    # clean up / reset resources here
+
+    ctx.pop()
 
 
-@pytest.fixture(scope='function') # scope = function ensures every test is independent
+@pytest.fixture(scope='function')
 def client(app):
-    return app.test_client()
+    """
+    Setup an app client, this gets executed for each test function.
+
+    :param app: Pytest fixture
+    :return: Flask app client
+    """
+    yield app.test_client()
+    

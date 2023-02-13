@@ -11,7 +11,7 @@ export const Login = (props) => {
     const logMeIn = (event) => {
       axios({
         method: "POST",
-        url:"http://localhost:8000/token",
+        url:"http://localhost:8000/login/token",
         data:{
           email: loginForm.email,
           password: loginForm.password
