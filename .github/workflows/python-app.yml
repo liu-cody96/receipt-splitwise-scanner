@@ -3,11 +3,7 @@
 
 name: Python application
 
-on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+on: [push]
 
 permissions:
   contents: read
@@ -16,6 +12,8 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    container:
+      image: receiptscanner:latest
 
     steps:
     - uses: actions/checkout@v3
@@ -35,11 +33,7 @@ jobs:
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
-    - name: docker-compose -f backend/docker-compose.yml up
-      env:
-        COMPOSE_INTERACTIVE_NO_CLI: 1
-      run: docker-compose -f backend/docker-compose.yml up --detach
     - name: Test with pytest
       env:
         COMPOSE_INTERACTIVE_NO_CLI: 1
-      run: docker-compose -f backend/docker-compose.yml exec website py.test receiptscanner/tests
+      run: py.test receiptscanner/tests
