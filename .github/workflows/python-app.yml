@@ -35,15 +35,15 @@ jobs:
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
-    - name: docker-compose -f /backend/docker-compose.yml up
+    - name: docker-compose -f ../backend/docker-compose.yml up
       env:
         COMPOSE_INTERACTIVE_NO_CLI: 1
-      run: docker-compose -f /backend/docker-compose.yml up -d
+      run: docker-compose -f ../backend/docker-compose.yml up -d
     - name: Check running containers
-      run: docker-compose -f /backend/docker-compose.yml ps -a
+      run: docker-compose -f ../backend/docker-compose.yml ps -a
     - name: Check logs
-      run: docker-compose -f /backend/docker-compose.yml logs app
+      run: docker-compose -f ../backend/docker-compose.yml logs app
     - name: Test with pytest
       env:
         COMPOSE_INTERACTIVE_NO_CLI: 1
-      run: docker-compose -f /backend/docker-compose.yml exec website py.test receiptscanner/tests
+      run: docker-compose -f ../backend/docker-compose.yml exec website py.test receiptscanner/tests
