@@ -13,7 +13,7 @@ jobs:
 
     runs-on: ubuntu-latest
     container:
-      image: docker://liucody96/receiptscanner:latest:latest
+      image: docker://liucody96/receiptscanner:latest
 
     steps:
     - uses: actions/checkout@v3
