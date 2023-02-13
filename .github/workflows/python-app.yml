@@ -39,10 +39,6 @@ jobs:
       env:
         COMPOSE_INTERACTIVE_NO_CLI: 1
       run: docker-compose -f backend/docker-compose.yml up -d
-    - name: Check running containers
-      run: docker-compose -f backend/docker-compose.yml ps -a
-    - name: Check logs
-      run: docker-compose -f backend/docker-compose.yml logs app
     - name: Test with pytest
       env:
         COMPOSE_INTERACTIVE_NO_CLI: 1
