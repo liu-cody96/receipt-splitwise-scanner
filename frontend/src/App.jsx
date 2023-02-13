@@ -1,6 +1,6 @@
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Error, Home } from "./pages";
+import { Error, HomePage } from "./pages";
 
 const App = () => {
   return (
@@ -11,9 +11,9 @@ const App = () => {
 
         <Routes>
             {/* route to landing page if browser URL becomes '/' */}
-            <Route path="/*" element={<Home/>}></Route>
+            <Route path="/" element={<HomePage/>}></Route>
             {/* route anything else to the error page */}
-            <Route path="*" element={<Error/>}></Route>
+            <Route path="/*" element={<Error/>}></Route>
         </Routes>
 
       </BrowserRouter>

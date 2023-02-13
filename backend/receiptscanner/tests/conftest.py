@@ -15,7 +15,7 @@ def app():
         'TESTING': True,
     }
 
-    _app = create_app(settings_override=params)
+    _app = create_app() # settings_override = params?
 
     # Establish an application context before running the tests.
     ctx = _app.app_context()
@@ -26,7 +26,7 @@ def app():
     ctx.pop()
 
 
-@pytest.fixture(scope='function') # scope = function ensures every test is independent
+@pytest.fixture(scope='function')
 def client(app):
     """
     Setup an app client, this gets executed for each test function.
@@ -34,4 +34,5 @@ def client(app):
     :param app: Pytest fixture
     :return: Flask app client
     """
-    yield app.test_client() # allows us to navigate our application in tests without being in browser
+    yield app.test_client()
+    

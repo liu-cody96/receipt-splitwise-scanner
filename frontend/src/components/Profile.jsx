@@ -7,7 +7,7 @@ export const Profile = (props) => {
   const getData = () => {
     axios({
       method: "GET",
-      url:"http://localhost:8000/profile",
+      url:"http://localhost:8000/login/profile",
       headers: {
         Authorization: 'Bearer ' + props.token
       }
