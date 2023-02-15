@@ -13,3 +13,4 @@ Flask-Cors==3.0.10
 Flask-JWT-Extended
 
 python-dotenv
+requests

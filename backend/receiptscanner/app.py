@@ -1,12 +1,10 @@
 from flask import Flask, request, jsonify
-from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash # never store a plaintext password!!
 from flask_jwt_extended import create_access_token,get_jwt,get_jwt_identity, \
                                unset_jwt_cookies, jwt_required, JWTManager
 
 db = SQLAlchemy( )
-cors = CORS( )
 jwt = JWTManager( )
 
 def create_app():
@@ -20,7 +18,6 @@ def create_app():
     app.config.from_pyfile('settings.py', silent=True)
 
     db.init_app(app)
-    cors.init_app(app)
     jwt.init_app(app)
 
     from .blueprints.routes import api

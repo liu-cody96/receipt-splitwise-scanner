@@ -1,4 +1,5 @@
 from flask import Blueprint
+from flask_cors import CORS
 from flask import request, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash # never store a plaintext password!!
 from flask_jwt_extended import create_access_token,get_jwt_identity, \
@@ -7,6 +8,7 @@ from ...app import db
 from .models import Users
 
 user = Blueprint('user', __name__,url_prefix='/login')
+CORS(user)
 
 @user.route('/', methods=["GET"])
 def hello():
