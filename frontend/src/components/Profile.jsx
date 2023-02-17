@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import axios from "axios";
+import { ReceiptData } from './Receipt';
+import { TagUserInput } from './TagUserInput'
 
 export const Profile = (props) => {
-
-  const [profileData, setProfileData] = useState(null)
   const [image, setImage] = useState(null)
+  const [receiptData, setReceiptData] = useState(null)
 
   const onImageChange = (e) => {
     const img = e.target.files[0]
@@ -12,45 +13,19 @@ export const Profile = (props) => {
   }
 
   const sendReceipt = (e) => {
-    //e.preventDefault()
     let formData = new FormData();
     formData.append('image', image);
-    for (let key of formData.entries()) {
-      console.log(key[0] + ', ' + key[1]);
-  }
-
     axios({
       method: "POST",
       url:"http://localhost:8000/receiptscanner",
       data: formData,
-      headers: {'Content-Type': 'multipart/form-data' }
-      //"Authorization": 'Bearer ' + props.token,
+      headers: {'Content-Type': 'multipart/form-data', "Authorization": 'Bearer ' + props.token },
     })
     .then((response) => {
       const res = response.data
+      setReceiptData(response.data)
+      console.log(res)
       res.access_token && props.setToken(res.access_token)
-    }).catch((error) => {
-      if (error.response) {
-        console.log(error.response)
-        console.log(error.response.status)
-        console.log(error.response.headers)
-        }
-    })}
-
-  const getData = () => {
-    axios({
-      method: "GET",
-      url:"http://localhost:8000/login/profile",
-      headers: {
-        Authorization: 'Bearer ' + props.token
-      }
-    })
-    .then((response) => {
-      const res = response.data
-      res.access_token && props.setToken(res.access_token)
-      setProfileData(({
-        profile_name: res.username
-        }))
     }).catch((error) => {
       if (error.response) {
         console.log(error.response)
@@ -62,15 +37,12 @@ export const Profile = (props) => {
   return (
     <div className="Profile">
 
-        <p>To get your profile details: </p><button onClick={getData}>Click me</button>
-        {profileData && 
-          <div>
-              <p>Profile name: {profileData.profile_name}</p>
-              <p>About me: i like chocolate</p>
-              <input type="file" multiple accept="image/*" onChange={onImageChange} />
-              <button onClick={sendReceipt}>Submit</button>
-            </div>
-        }
+        <h2>Welcome {props.profileData}! Upload an image of a receipt to get started.</h2>
+        <p>Please make sure the picture has appropriate lighting and background, otherwise the parser won't work.</p>
+        <input type="file" multiple accept="image/*" onChange={onImageChange} />
+        <button onClick={sendReceipt}>Upload</button>
+
+        {receiptData!=null && <ReceiptData data = {receiptData}></ReceiptData>}
 
     </div>
   );

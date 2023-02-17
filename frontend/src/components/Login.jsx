@@ -11,7 +11,7 @@ export const Login = (props) => {
     const logMeIn = (event) => {
       axios({
         method: "POST",
-        url:"http://localhost:8000/login/token",
+        url:"http://localhost:8000/user/token",
         data:{
           email: loginForm.email,
           password: loginForm.password
@@ -19,6 +19,7 @@ export const Login = (props) => {
       })
       .then((response) => {
         props.setToken(response.data.access_token)
+        props.setProfileData(response.data.username)
       }).catch((error) => {
         if (error.response) {
           alert("Username or password is incorrect")

@@ -7,7 +7,7 @@ from flask_jwt_extended import create_access_token,get_jwt_identity, \
 from ...app import db
 from .models import Users
 
-user = Blueprint('user', __name__,url_prefix='/login')
+user = Blueprint('user', __name__,url_prefix='/user')
 CORS(user)
 
 @user.route('/', methods=["GET"])
@@ -25,7 +25,7 @@ def create_token():
 
     # if login is correct, create an access token and return the response to the frontend
     access_token = create_access_token(identity=email)
-    response = {"access_token":access_token}
+    response = {"access_token":access_token, "username": user.username}
     return response
 
 @user.route('/profile')
